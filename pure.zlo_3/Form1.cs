@@ -46,7 +46,7 @@ namespace pure.zlo_3
             if (coordinateGrid_checkBox.Checked)
             {
                 Renderer.grid();
-                //Renderer.Axis();
+                Renderer.axis();
             }
 
             Renderer.lightOn(_lightMode);
@@ -97,22 +97,22 @@ namespace pure.zlo_3
         private void glV_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
-                _mouseRotate = true; // Если нажата левая кнопка мыши
+                _mouseRotate = true;
 
             if (e.Button == MouseButtons.Right)
-                _mouseXzMove = true; // Если нажата правая кнопка мыши
+                _mouseXzMove = true;
 
             if (e.Button == MouseButtons.Middle)
-                _mouseYMove = true; // Если нажата средняя кнопка мыши
+                _mouseYMove = true;
 
-            _myMouseYcoord = e.X; // Передаем в нашу глобальную переменную позицию мыши по Х
+            _myMouseYcoord = e.X;
             _myMouseXcoord = e.Y;
             CanvasRefresh();
         }
 
         private void glV_MouseUp(object sender, MouseEventArgs e)
         {
-            glV.Cursor = Cursors.Arrow; //меняем указатель
+            glV.Cursor = Cursors.Arrow;
             _mouseRotate = _mouseXzMove = _mouseYMove = false;
             CanvasRefresh();
         }
@@ -186,9 +186,9 @@ namespace pure.zlo_3
 
         private void mouseEvents()
         {
-            if (_mouseRotate) // Если нажата левая кнопка мыши
+            if (_mouseRotate)
             {
-                glV.Cursor = Cursors.SizeAll; //меняем указатель
+                glV.Cursor = Cursors.SizeAll;
 
                 _camera.rotateXY(_myMouseYcoordVar - _myMouseYcoord, _myMouseXcoordVar - _myMouseXcoord);
 
@@ -216,7 +216,7 @@ namespace pure.zlo_3
             }
             else
             {
-                glV.Invoke(new Action(() => glV.Cursor = Cursors.Default)); // возвращаем курсор
+                glV.Invoke(new Action(() => glV.Cursor = Cursors.Default));
             }
         }
         private void CanvasRefresh()

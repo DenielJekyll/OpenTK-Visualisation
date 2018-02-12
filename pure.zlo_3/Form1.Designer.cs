@@ -117,7 +117,6 @@
             this.ortografia_radioButton.Name = "ortografia_radioButton";
             this.ortografia_radioButton.Size = new System.Drawing.Size(71, 17);
             this.ortografia_radioButton.TabIndex = 2;
-            this.ortografia_radioButton.TabStop = true;
             this.ortografia_radioButton.Text = "Ortografia";
             this.ortografia_radioButton.UseVisualStyleBackColor = true;
             this.ortografia_radioButton.Click += new System.EventHandler(this.ortografia_radioButton_Click);
@@ -125,6 +124,7 @@
             // prospect_radioButton
             // 
             this.prospect_radioButton.AutoSize = true;
+            this.prospect_radioButton.Checked = true;
             this.prospect_radioButton.Location = new System.Drawing.Point(6, 19);
             this.prospect_radioButton.Name = "prospect_radioButton";
             this.prospect_radioButton.Size = new System.Drawing.Size(67, 17);
@@ -185,6 +185,8 @@
             // coordinateGrid_checkBox
             // 
             this.coordinateGrid_checkBox.AutoSize = true;
+            this.coordinateGrid_checkBox.Checked = true;
+            this.coordinateGrid_checkBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.coordinateGrid_checkBox.Location = new System.Drawing.Point(6, 56);
             this.coordinateGrid_checkBox.Name = "coordinateGrid_checkBox";
             this.coordinateGrid_checkBox.Size = new System.Drawing.Size(97, 17);

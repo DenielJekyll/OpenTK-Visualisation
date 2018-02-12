@@ -30,17 +30,17 @@ namespace pure.zlo_3.source
             GL.LineWidth(2f);
             GL.Begin(PrimitiveType.Lines);
 
-            GL.Color3(1f, 0f, 0f);
+            GL.Color3(100f, 0f, 0f);
             GL.Vertex3(0f, 0f, 0f);
-            GL.Vertex3(1f, 0f, 0f);
+            GL.Vertex3(100f, 0f, 0f);
 
-            GL.Color3(0f, 1f, 0f);
+            GL.Color3(0f, 100f, 0f);
             GL.Vertex3(0f, 0f, 0f);
-            GL.Vertex3(0f, 1f, 0f);
+            GL.Vertex3(0f, 100f, 0f);
 
-            GL.Color3(0f, 0f, 1f);
+            GL.Color3(0f, 0f, 100f);
             GL.Vertex3(0f, 0f, 0f);
-            GL.Vertex3(0f, 0f, 1f);
+            GL.Vertex3(0f, 0f, 100f);
 
             GL.End();
             GL.LineWidth(1f);
@@ -302,7 +302,7 @@ namespace pure.zlo_3.source
         public static void makeDuplication()
         {
             // triangle template
-            var triangleFile = new StreamReader("res/hexagon.txt");
+            var triangleFile = new StreamReader("resources/hexagon.txt");
             var line = triangleFile.ReadLine();
             while (line != null)
             {
@@ -312,7 +312,7 @@ namespace pure.zlo_3.source
             }
 
             // trajectory
-            var trajectoryFile = new StreamReader("res/trajectory.txt");
+            var trajectoryFile = new StreamReader("resources/trajectory.txt");
             line = trajectoryFile.ReadLine();
             while (line != null)
             {
@@ -322,7 +322,7 @@ namespace pure.zlo_3.source
             }
 
             // percents
-            var percentFile = new StreamReader("res/percent.txt");
+            var percentFile = new StreamReader("resources/percent.txt");
             line = percentFile.ReadLine();
             while (line != null)
             {
@@ -432,7 +432,7 @@ namespace pure.zlo_3.source
                     {
                         #region C текстурой
 
-                        texId = loadTexture("res/texture2.bmp");
+                        texId = loadTexture("resources/texture2.bmp");
                         GL.BindTexture(TextureTarget.Texture2D, texId);
                         GL.Color3(Color.White);
 
@@ -643,7 +643,7 @@ namespace pure.zlo_3.source
                     {
                         #region C текстурой
 
-                        texId = loadTexture("res/photo.jpg");
+                        texId = loadTexture("resources/photo.jpg");
                         GL.BindTexture(TextureTarget.Texture2D, texId);
                         GL.Color3(Color.Red);
                         
