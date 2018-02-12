@@ -218,7 +218,7 @@ namespace pure.zlo_3.source
             return triangle;
         }
 
-        public static void calcnormals()
+        public static void calcNormals()
         {
             var normalVector = normal(figure[0][0], figure[0][1], figure[0][2]);
             normals.Add(normalVector);
@@ -265,7 +265,7 @@ namespace pure.zlo_3.source
             return (vector1.Normalized() + vector2.Normalized() + vector3.Normalized() + vector4.Normalized());
         }
 
-        public static void smoothnormals()
+        public static void smoothNormals()
         {
             smoothednormals.Clear();
             
@@ -417,7 +417,7 @@ namespace pure.zlo_3.source
             }
         }
 
-        public static void Drawfigure(bool body, bool texture, bool smooth, Vector3 vec)
+        public static void drawFigure(bool body, bool texture, bool smooth, Vector3 vec)
         {
             var nN = 0;
 
