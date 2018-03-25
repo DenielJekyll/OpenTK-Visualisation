@@ -24,6 +24,7 @@ namespace pure.zlo_3.source
         private static readonly List<Vector3> replicationTray = new List<Vector3>();
         private static readonly List<Vector3> templateHexagon = new List<Vector3>(4);
         private static readonly List<List<Vector3>> figure = new List<List<Vector3>>();
+        private static Color lightColor = Color.White;
 
         public static void axis()
         {
@@ -432,9 +433,9 @@ namespace pure.zlo_3.source
                     {
                         #region C текстурой
 
-                        texId = loadTexture("resources/texture2.bmp");
+                        texId = loadTexture("resources/texture.bmp");
                         GL.BindTexture(TextureTarget.Texture2D, texId);
-                        GL.Color3(Color.White);
+                        GL.Color3(lightColor);
 
                         GL.Begin(PrimitiveType.Polygon);
                         GL.Normal3(normals[nN].X, normals[nN].Y, normals[nN].Z);
@@ -645,8 +646,8 @@ namespace pure.zlo_3.source
 
                         texId = loadTexture("resources/photo.jpg");
                         GL.BindTexture(TextureTarget.Texture2D, texId);
-                        GL.Color3(Color.Red);
-                        
+                        GL.Color3(lightColor);
+
                         GL.Begin(PrimitiveType.Polygon);
                         GL.Normal3(smoothednormals[nN].X, smoothednormals[nN].Y, smoothednormals[nN].Z);
                         nN++;
@@ -1023,6 +1024,9 @@ namespace pure.zlo_3.source
             GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter,
                 (int)TextureMagFilter.Linear);
             return id;
+        }
+        public static void changeLightColor(Color color) {
+            lightColor = color;
         }
     }
 }

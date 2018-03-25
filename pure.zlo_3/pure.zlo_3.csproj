@@ -96,6 +96,7 @@
     <Content Include="resources\texture.jpg" />
     <Content Include="resources\texture2.bmp" />
     <Content Include="resources\texture2.jpg" />
+    <Content Include="resources\trajectory1.txt" />
     <Content Include="resources\trajectory.txt" />
     <Content Include="resources\wood_45.jpg" />
   </ItemGroup>

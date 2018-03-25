@@ -244,5 +244,12 @@ namespace pure.zlo_3
         {
             CanvasRefresh();
         }
+
+        private void lightColor_button_Click(object sender, EventArgs e)
+        {
+            lightColorPicker.ShowDialog();
+            Renderer.changeLightColor(lightColorPicker.Color);
+            glV.Invalidate();
+        }
     }
 }
