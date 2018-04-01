@@ -25,6 +25,7 @@ namespace pure.zlo_3.source
         private static readonly List<Vector3> templateHexagon = new List<Vector3>(4);
         private static readonly List<List<Vector3>> figure = new List<List<Vector3>>();
         private static Color lightColor = Color.White;
+        private static Color normalColor = Color.Red;
 
         public static void axis()
         {
@@ -71,18 +72,19 @@ namespace pure.zlo_3.source
 
         public static void lightOn(int lightSample)
         {
+            float[] coords = new[] { 10f, 5000f, 10f, 1f };
             GL.Enable(EnableCap.Lighting);
             GL.LightModel(LightModelParameter.LightModelLocalViewer, 1);
             GL.Enable(EnableCap.Light0);
-            GL.Light(LightName.Light0, LightParameter.Position, new[] { 10f, 5f, 10f, 1f });
+            GL.Light(LightName.Light0, LightParameter.Position, coords);
             GL.Material(MaterialFace.FrontAndBack, MaterialParameter.Diffuse, new[] { 0.5f, 0.5f, 0.5f });
             GL.Material(MaterialFace.FrontAndBack, MaterialParameter.Diffuse, new[] { 0.5f, 0.5f, 0.5f });
             GL.Material(MaterialFace.FrontAndBack, MaterialParameter.Shininess, 50f);
             GL.Enable(EnableCap.ColorMaterial);
             GL.PointSize(10);
-            GL.Color3(255f, 0, 0);
+            GL.Color3(0, 255f, 0);
             GL.Begin(PrimitiveType.Points);
-            GL.Vertex3(10f, 5f, 10f);
+            GL.Vertex3(coords[0], coords[1], coords[2]);
             GL.End();
         }
 
@@ -300,10 +302,10 @@ namespace pure.zlo_3.source
         }
 
         //input
-        public static void makeDuplication()
+        public static void makeDuplication(string path)
         {
             // triangle template
-            var triangleFile = new StreamReader("resources/hexagon.txt");
+            var triangleFile = new StreamReader(path.Replace("trajectory", "hexagon"));
             var line = triangleFile.ReadLine();
             while (line != null)
             {
@@ -313,7 +315,7 @@ namespace pure.zlo_3.source
             }
 
             // trajectory
-            var trajectoryFile = new StreamReader("resources/trajectory.txt");
+            var trajectoryFile = new StreamReader(path);
             line = trajectoryFile.ReadLine();
             while (line != null)
             {
@@ -323,7 +325,7 @@ namespace pure.zlo_3.source
             }
 
             // percents
-            var percentFile = new StreamReader("resources/percent.txt");
+            var percentFile = new StreamReader(path.Replace("trajectory", "percent"));
             line = percentFile.ReadLine();
             while (line != null)
             {
@@ -404,7 +406,7 @@ namespace pure.zlo_3.source
                 
                 var angle = (float)(Math.Acos(scal / curPath.Length * predPath.Length) * 180.0 / Math.PI);
                 
-                if (scal < 0)
+                if (sc al < 0)
                     angle = 180 - angle;
                 else
                     angle = -(180 + angle);
@@ -418,7 +420,7 @@ namespace pure.zlo_3.source
             }
         }
 
-        public static void drawFigure(bool body, bool texture, bool smooth, Vector3 vec)
+        public static void drawFigure(bool body, bool texture, bool smooth, Vector3 vec, string path)
         {
             var nN = 0;
 
@@ -433,7 +435,7 @@ namespace pure.zlo_3.source
                     {
                         #region C текстурой
 
-                        texId = loadTexture("resources/texture.bmp");
+                        texId = loadTexture(path);
                         GL.BindTexture(TextureTarget.Texture2D, texId);
                         GL.Color3(lightColor);
 
@@ -559,7 +561,7 @@ namespace pure.zlo_3.source
                         GL.Begin(PrimitiveType.Polygon);
                         GL.Normal3(normals[nN].X, normals[nN].Y, normals[nN].Z);
                         nN++;
-                        GL.Color3(1f, 0, 0);
+                        GL.Color3(normalColor);
                         for (var i = 0; i < templateHexagon.Count; i++)
                             GL.Vertex3(figure[0][i].X, figure[0][i].Y, figure[0][i].Z);
                         GL.End();
@@ -569,7 +571,7 @@ namespace pure.zlo_3.source
                             GL.Begin(PrimitiveType.Polygon);
                             GL.Normal3(normals[nN].X, normals[nN].Y, normals[nN].Z);
                             nN++;
-                            GL.Color3(1f, 0, 0);
+                            GL.Color3(normalColor);
                             GL.Vertex3(figure[i][0].X, figure[i][0].Y, figure[i][0].Z);
                             GL.Vertex3(figure[i + 1][0].X, figure[i + 1][0].Y, figure[i + 1][0].Z);
                             GL.Vertex3(figure[i + 1][1].X, figure[i + 1][1].Y, figure[i + 1][1].Z);
@@ -579,7 +581,7 @@ namespace pure.zlo_3.source
                             GL.Begin(PrimitiveType.Polygon);
                             GL.Normal3(normals[nN].X, normals[nN].Y, normals[nN].Z);
                             nN++;
-                            GL.Color3(1f, 0, 0);
+                            GL.Color3(normalColor);
                             GL.Vertex3(figure[i][1].X, figure[i][1].Y, figure[i][1].Z);
                             GL.Vertex3(figure[i + 1][1].X, figure[i + 1][1].Y, figure[i + 1][1].Z);
                             GL.Vertex3(figure[i + 1][2].X, figure[i + 1][2].Y, figure[i + 1][2].Z);
@@ -589,7 +591,7 @@ namespace pure.zlo_3.source
                             GL.Begin(PrimitiveType.Polygon);
                             GL.Normal3(normals[nN].X, normals[nN].Y, normals[nN].Z);
                             nN++;
-                            GL.Color3(1f, 0, 0);
+                            GL.Color3(normalColor);
                             GL.Vertex3(figure[i][2].X, figure[i][2].Y, figure[i][2].Z);
                             GL.Vertex3(figure[i + 1][2].X, figure[i + 1][2].Y, figure[i + 1][2].Z);
                             GL.Vertex3(figure[i + 1][3].X, figure[i + 1][3].Y, figure[i + 1][3].Z);
@@ -599,7 +601,7 @@ namespace pure.zlo_3.source
                             GL.Begin(PrimitiveType.Polygon);
                             GL.Normal3(normals[nN].X, normals[nN].Y, normals[nN].Z);
                             nN++;
-                            GL.Color3(1f, 0, 0);
+                            GL.Color3(normalColor);
                             GL.Vertex3(figure[i][3].X, figure[i][3].Y, figure[i][3].Z);
                             GL.Vertex3(figure[i + 1][3].X, figure[i + 1][3].Y, figure[i + 1][3].Z);
                             GL.Vertex3(figure[i + 1][4].X, figure[i + 1][4].Y, figure[i + 1][4].Z);
@@ -609,7 +611,7 @@ namespace pure.zlo_3.source
                             GL.Begin(PrimitiveType.Polygon);
                             GL.Normal3(normals[nN].X, normals[nN].Y, normals[nN].Z);
                             nN++;
-                            GL.Color3(1f, 0, 0);
+                            GL.Color3(normalColor);
                             GL.Vertex3(figure[i][4].X, figure[i][4].Y, figure[i][4].Z);
                             GL.Vertex3(figure[i + 1][4].X, figure[i + 1][4].Y, figure[i + 1][4].Z);
                             GL.Vertex3(figure[i + 1][5].X, figure[i + 1][5].Y, figure[i + 1][5].Z);
@@ -619,7 +621,7 @@ namespace pure.zlo_3.source
                             GL.Begin(PrimitiveType.Polygon);
                             GL.Normal3(normals[nN].X, normals[nN].Y, normals[nN].Z);
                             nN++;
-                            GL.Color3(1f, 0, 0);
+                            GL.Color3(normalColor);
                             GL.Vertex3(figure[i][5].X, figure[i][5].Y, figure[i][5].Z);
                             GL.Vertex3(figure[i + 1][5].X, figure[i + 1][5].Y, figure[i + 1][5].Z);
                             GL.Vertex3(figure[i + 1][0].X, figure[i + 1][0].Y, figure[i + 1][0].Z);
@@ -630,7 +632,7 @@ namespace pure.zlo_3.source
                         var j = figure.Count - 1;
                         GL.Begin(PrimitiveType.Polygon);
                         GL.Normal3(-normals[nN].X, -normals[nN].Y, -normals[nN].Z);
-                        GL.Color3(1f, 0, 0);
+                        GL.Color3(normalColor);
                         for (var i = 0; i < templateHexagon.Count; i++)
                             GL.Vertex3(figure[j][i].X, figure[j][i].Y, figure[j][i].Z);
                         GL.End();
@@ -644,7 +646,7 @@ namespace pure.zlo_3.source
                     {
                         #region C текстурой
 
-                        texId = loadTexture("resources/photo.jpg");
+                        texId = loadTexture(path.Replace("texture.bmp", "photo.jpg"));
                         GL.BindTexture(TextureTarget.Texture2D, texId);
                         GL.Color3(lightColor);
 
@@ -770,7 +772,7 @@ namespace pure.zlo_3.source
                         GL.Begin(PrimitiveType.Polygon);
                         GL.Normal3(smoothednormals[nN].X, smoothednormals[nN].Y, smoothednormals[nN].Z);
                         nN++;
-                        GL.Color3(1f, 0, 0);
+                        GL.Color3(normalColor);
                         for (var i = 0; i < templateHexagon.Count; i++)
                             GL.Vertex3(figure[0][i].X, figure[0][i].Y, figure[0][i].Z);
                         GL.End();
@@ -780,7 +782,7 @@ namespace pure.zlo_3.source
                             GL.Begin(PrimitiveType.Polygon);
                             GL.Normal3(smoothednormals[nN].X, smoothednormals[nN].Y, smoothednormals[nN].Z);
                             nN++;
-                            GL.Color3(1f, 0, 0);
+                            GL.Color3(normalColor);
                             GL.Vertex3(figure[i][0].X, figure[i][0].Y, figure[i][0].Z);
                             GL.Vertex3(figure[i + 1][0].X, figure[i + 1][0].Y, figure[i + 1][0].Z);
                             GL.Vertex3(figure[i + 1][1].X, figure[i + 1][1].Y, figure[i + 1][1].Z);
@@ -790,7 +792,7 @@ namespace pure.zlo_3.source
                             GL.Begin(PrimitiveType.Polygon);
                             GL.Normal3(smoothednormals[nN].X, smoothednormals[nN].Y, smoothednormals[nN].Z);
                             nN++;
-                            GL.Color3(1f, 0, 0);
+                            GL.Color3(normalColor);
                             GL.Vertex3(figure[i][1].X, figure[i][1].Y, figure[i][1].Z);
                             GL.Vertex3(figure[i + 1][1].X, figure[i + 1][1].Y, figure[i + 1][1].Z);
                             GL.Vertex3(figure[i + 1][2].X, figure[i + 1][2].Y, figure[i + 1][2].Z);
@@ -800,7 +802,7 @@ namespace pure.zlo_3.source
                             GL.Begin(PrimitiveType.Polygon);
                             GL.Normal3(smoothednormals[nN].X, smoothednormals[nN].Y, smoothednormals[nN].Z);
                             nN++;
-                            GL.Color3(1f, 0, 0);
+                            GL.Color3(normalColor);
                             GL.Vertex3(figure[i][2].X, figure[i][2].Y, figure[i][2].Z);
                             GL.Vertex3(figure[i + 1][2].X, figure[i + 1][2].Y, figure[i + 1][2].Z);
                             GL.Vertex3(figure[i + 1][3].X, figure[i + 1][3].Y, figure[i + 1][3].Z);
@@ -810,7 +812,7 @@ namespace pure.zlo_3.source
                             GL.Begin(PrimitiveType.Polygon);
                             GL.Normal3(smoothednormals[nN].X, smoothednormals[nN].Y, smoothednormals[nN].Z);
                             nN++;
-                            GL.Color3(1f, 0, 0);
+                            GL.Color3(normalColor);
                             GL.Vertex3(figure[i][3].X, figure[i][3].Y, figure[i][3].Z);
                             GL.Vertex3(figure[i + 1][3].X, figure[i + 1][3].Y, figure[i + 1][3].Z);
                             GL.Vertex3(figure[i + 1][4].X, figure[i + 1][4].Y, figure[i + 1][4].Z);
@@ -820,7 +822,7 @@ namespace pure.zlo_3.source
                             GL.Begin(PrimitiveType.Polygon);
                             GL.Normal3(smoothednormals[nN].X, smoothednormals[nN].Y, smoothednormals[nN].Z);
                             nN++;
-                            GL.Color3(1f, 0, 0);
+                            GL.Color3(normalColor);
                             GL.Vertex3(figure[i][4].X, figure[i][4].Y, figure[i][4].Z);
                             GL.Vertex3(figure[i + 1][4].X, figure[i + 1][4].Y, figure[i + 1][4].Z);
                             GL.Vertex3(figure[i + 1][5].X, figure[i + 1][5].Y, figure[i + 1][5].Z);
@@ -830,7 +832,7 @@ namespace pure.zlo_3.source
                             GL.Begin(PrimitiveType.Polygon);
                             GL.Normal3(smoothednormals[nN].X, smoothednormals[nN].Y, smoothednormals[nN].Z);
                             nN++;
-                            GL.Color3(1f, 0, 0);
+                            GL.Color3(normalColor);
                             GL.Vertex3(figure[i][5].X, figure[i][5].Y, figure[i][5].Z);
                             GL.Vertex3(figure[i + 1][5].X, figure[i + 1][5].Y, figure[i + 1][5].Z);
                             GL.Vertex3(figure[i + 1][0].X, figure[i + 1][0].Y, figure[i + 1][0].Z);
@@ -841,7 +843,7 @@ namespace pure.zlo_3.source
                         var j = figure.Count - 1;
                         GL.Begin(PrimitiveType.Polygon);
                         GL.Normal3(smoothednormals[nN].X, smoothednormals[nN].Y, smoothednormals[nN].Z);
-                        GL.Color3(1f, 0, 0);
+                        GL.Color3(normalColor);
                         for (var i = 0; i < templateHexagon.Count; i++)
                             GL.Vertex3(figure[j][i].X, figure[j][i].Y, figure[j][i].Z);
                         GL.End();
@@ -893,7 +895,7 @@ namespace pure.zlo_3.source
                 for (var i = 0; i < templateHexagon.Count; i++)
                 {
                     GL.Begin(PrimitiveType.LineStrip);
-                    GL.Color3(Color.Cyan);
+                    GL.Color3(Color.White);
                     GL.Vertex3(figure[0][i].X, figure[0][i].Y, figure[0][i].Z);
                     GL.Vertex3(figure[0][i].X + normals[0].X, figure[0][i].Y + normals[0].Y,
                         figure[0][i].Z + normals[0].Z);
@@ -909,28 +911,28 @@ namespace pure.zlo_3.source
                             l = 0;
 
                         GL.Begin(PrimitiveType.LineStrip);
-                        GL.Color3(Color.Cyan);
+                        GL.Color3(Color.White);
                         GL.Vertex3(figure[i][k].X, figure[i][k].Y, figure[i][k].Z);
                         GL.Vertex3(figure[i][k].X + normals[nN].X, figure[i][k].Y + normals[nN].Y,
                             figure[i][k].Z + normals[nN].Z);
                         GL.End();
 
                         GL.Begin(PrimitiveType.LineStrip);
-                        GL.Color3(Color.Cyan);
+                        GL.Color3(Color.White);
                         GL.Vertex3(figure[i + 1][k].X, figure[i + 1][k].Y, figure[i + 1][k].Z);
                         GL.Vertex3(figure[i + 1][k].X + normals[nN].X, figure[i + 1][k].Y + normals[nN].Y,
                             figure[i + 1][k].Z + normals[nN].Z);
                         GL.End();
 
                         GL.Begin(PrimitiveType.LineStrip);
-                        GL.Color3(Color.Cyan);
+                        GL.Color3(Color.White);
                         GL.Vertex3(figure[i + 1][l].X, figure[i + 1][l].Y, figure[i + 1][l].Z);
                         GL.Vertex3(figure[i + 1][l].X + normals[nN].X, figure[i + 1][l].Y + normals[nN].Y,
                             figure[i + 1][l].Z + normals[nN].Z);
                         GL.End();
 
                         GL.Begin(PrimitiveType.LineStrip);
-                        GL.Color3(Color.Cyan);
+                        GL.Color3(Color.White);
                         GL.Vertex3(figure[i][l].X, figure[i][l].Y, figure[i][l].Z);
                         GL.Vertex3(figure[i][l].X + normals[nN].X, figure[i][l].Y + normals[nN].Y,
                             figure[i][l].Z + normals[nN].Z);
@@ -945,7 +947,7 @@ namespace pure.zlo_3.source
                 for (var i = 0; i < templateHexagon.Count; i++)
                 {
                     GL.Begin(PrimitiveType.LineStrip);
-                    GL.Color3(Color.Cyan);
+                    GL.Color3(Color.White);
                     GL.Vertex3(figure[j][i].X, figure[j][i].Y, figure[j][i].Z);
                     GL.Vertex3(figure[j][i].X + normals[nN].X, figure[j][i].Y + normals[nN].Y,
                         figure[j][i].Z + normals[nN].Z);
@@ -958,42 +960,42 @@ namespace pure.zlo_3.source
                 nN = 0;
                 for (var i = 0; i < figure.Count; i++)
                 {
-                    GL.Color3(255f, 0, 0);
+                    GL.Color3(0, 255f, 0);
                     GL.Begin(PrimitiveType.LineStrip);
                     GL.Vertex3(figure[i][0].X, figure[i][0].Y, figure[i][0].Z);
                     GL.Vertex3(figure[i][0].X + smoothednormals[nN].X, figure[i][0].Y + smoothednormals[nN].Y,
                         figure[i][0].Z + smoothednormals[nN].Z);
                     GL.End();
 
-                    GL.Color3(255f, 0, 0);
+                    GL.Color3(0, 255f, 0);
                     GL.Begin(PrimitiveType.LineStrip);
                     GL.Vertex3(figure[i][1].X, figure[i][1].Y, figure[i][1].Z);
                     GL.Vertex3(figure[i][1].X + smoothednormals[nN + 1].X, figure[i][1].Y + smoothednormals[nN + 1].Y,
                         figure[i][1].Z + smoothednormals[nN + 1].Z);
                     GL.End();
 
-                    GL.Color3(255f, 0, 0);
+                    GL.Color3(0, 255f, 0);
                     GL.Begin(PrimitiveType.LineStrip);
                     GL.Vertex3(figure[i][2].X, figure[i][2].Y, figure[i][2].Z);
                     GL.Vertex3(figure[i][2].X + smoothednormals[nN + 2].X, figure[i][2].Y + smoothednormals[nN + 2].Y,
                         figure[i][2].Z + smoothednormals[nN + 2].Z);
                     GL.End();
 
-                    GL.Color3(255f, 0, 0);
+                    GL.Color3(0, 255f, 0);
                     GL.Begin(PrimitiveType.LineStrip);
                     GL.Vertex3(figure[i][3].X, figure[i][3].Y, figure[i][3].Z);
                     GL.Vertex3(figure[i][3].X + smoothednormals[nN + 3].X, figure[i][3].Y + smoothednormals[nN + 3].Y,
                         figure[i][3].Z + smoothednormals[nN + 3].Z);
                     GL.End();
 
-                    GL.Color3(255f, 0, 0);
+                    GL.Color3(0, 255f, 0);
                     GL.Begin(PrimitiveType.LineStrip);
                     GL.Vertex3(figure[i][4].X, figure[i][4].Y, figure[i][4].Z);
                     GL.Vertex3(figure[i][4].X + smoothednormals[nN + 4].X, figure[i][4].Y + smoothednormals[nN + 4].Y,
                         figure[i][4].Z + smoothednormals[nN + 4].Z);
                     GL.End();
 
-                    GL.Color3(255f, 0, 0);
+                    GL.Color3(0, 255f, 0);
                     GL.Begin(PrimitiveType.LineStrip);
                     GL.Vertex3(figure[i][5].X, figure[i][5].Y, figure[i][5].Z);
                     GL.Vertex3(figure[i][5].X + smoothednormals[nN + 5].X, figure[i][5].Y + smoothednormals[nN + 5].Y,

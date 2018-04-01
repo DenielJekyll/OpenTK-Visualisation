@@ -50,7 +50,7 @@ namespace pure.zlo_3
             }
 
             Renderer.lightOn(_lightMode);
-            Renderer.drawFigure(surfaces_checkBox.Checked, texturing_checkBox.Checked, smoothing_checkBox.Checked, vec);
+            Renderer.drawFigure(surfaces_checkBox.Checked, texturing_checkBox.Checked, smoothing_checkBox.Checked, vec, openFile_dialog.FileName);
 
             if (showNormals_checkBox.Checked)
                 Renderer.DrawNormal(smoothing_checkBox.Checked, vec);
@@ -134,7 +134,8 @@ namespace pure.zlo_3
                 _camera.cameraPosition(19, 9, 4, 0, 0, 0, 0, 10, 0);
                 _camera.zoom(-3 / 50.0f);
 
-                Renderer.makeDuplication();
+                changeTheFigure_dialog.ShowDialog();
+                Renderer.makeDuplication(changeTheFigure_dialog.FileName);
                 Renderer.calcNormals();
             }
             catch (Exception err)
@@ -144,6 +145,7 @@ namespace pure.zlo_3
             }
 
             _initialized = true;
+            openFile_dialog.FileName = "resources\\textures\\sand\\texture.bmp";
         }
 
         private void prospect_radioButton_Click(object sender, EventArgs e)
@@ -250,6 +252,12 @@ namespace pure.zlo_3
             lightColorPicker.ShowDialog();
             Renderer.changeLightColor(lightColorPicker.Color);
             glV.Invalidate();
+        }
+
+        private void changeTheTexture_button_Click(object sender, EventArgs e)
+        {
+            openFile_dialog.ShowDialog();
+            Renderer.loadTexture(openFile_dialog.FileName);
         }
     }
 }
